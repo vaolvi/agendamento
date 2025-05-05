@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulário de Agendamento</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <!-- Cabeçalho -->
+  <header>
+    <h1>Formulário de Agendamento</h1>
+  </header>
+  <!-- Div de retorno do Webhook (oculta por padrão) -->
+  <div id="successMessage" class="success-container" style="display: none;">
+    <h2>Agendamento Confirmado!</h2>
+    <p id="successText"></p>
+  </div>
+  <div class="container">
+    <!-- Vídeo Inicial -->
+    <div class="video" id="video">
+      <video width="800" controls>
+        <source src="seu-video.mp4" type="video/mp4">
+        Seu navegador não suporta vídeo HTML5.
+      </video>
+    </div>
+
+    <!-- Botão para Exibir o Formulário -->
+    <button class="cta" id="ctaButton" onclick="showForm()">Agendar agora</button>
+
+    <!-- Formulário de Agendamento -->
+    <div class="form-container" id="formContainer" style="display: none;">
+      <form id="scheduleForm">
+        <!-- Nome -->
+        <label for="name">Nome</label>
+        <input type="text" id="name" name="name" placeholder="Seu nome" required>
+
+        <!-- Empresa -->
+        <label for="company">Empresa</label>
+        <input type="text" id="company" name="company" placeholder="Nome da empresa" required>
+
+        <!-- Campo de Data e Hora -->
+        <div class="form-row">
+          <div class="date-container">
+            <label for="date">Data</label>
+            <input type="date" id="date" name="date" onchange="fetchAvailableTimes()" required>
+          </div>
+          <div id="timeContainer" class="time-container">
+            <label for="time" id="timeLabel" style="display: none;">Hora</label>
+            <select id="time" name="time" style="display: none;" disabled required>
+              <option value="">Selecione a hora</option>
+            </select>
+            <div id="loadingMessage" class="loading-container" style="display: none;">
+              <div class="spinner"></div>
+              <span>Carregando horários...</span>
+            </div>
+            <div id="dateError" class="error-text" style="display: none;"></div>
+          </div>
+        </div>
+
+        <!-- Lista de E-mails -->
+        <label for="email">E-mails</label>
+        <div class="email-list" id="emailList">
+          <!-- Campo de E-mail Principal -->
+          <div class="email-container">
+            <input type="email" name="email[]" placeholder="Seu e-mail" required>
+          </div>
+        </div>
+        <button type="button" class="add-email" onclick="addEmailField()">Adicionar e-mail</button>
+
+        <!-- Botão de Envio -->
+        <button type="submit" id="submitButton">Enviar</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div id="modal" class="modal" style="display: none;">
+    <div class="modal-content">
+      <p id="modalMessage"></p>
+    </div>
+  </div>
+
+  <!-- Rodapé -->
+  <footer>
+    <p>© 2025 Formulário de Agendamento. Todos os direitos reservados.</p>
+  </footer>
+
+  <script src="script.js" defer></script>
+</body>
+
+</html>
